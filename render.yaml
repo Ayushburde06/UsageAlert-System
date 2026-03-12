@@ -1,6 +1,7 @@
+version: "1"
 services:
   - type: web
-    name: usagealert-system
+    name: gavatar-backend
     env: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
@@ -8,7 +9,7 @@ services:
     plan: free
 
   - type: web
-    name: usagealert-system-frontend
+    name: gavatar-frontend
     env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
