@@ -65,6 +65,9 @@ function App() {
   // Custom dot for recharts to highlight anomalies in red
   const CustomDot = (props) => {
     const { cx, cy, payload } = props;
+    if (payload.is_forecast) {
+      return null; // forecast doesn't need dots
+    }
     if (payload.is_anomaly) {
       return (
         <circle cx={cx} cy={cy} r={4} fill="#ef4444" stroke="none" />
@@ -140,6 +143,16 @@ function App() {
                   dot={<CustomDot />}
                   activeDot={{ r: 6 }}
                   strokeWidth={2}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="forecast_value" 
+                  stroke="#10b981" 
+                  name="Forecasted Usage"
+                  strokeDasharray="5 5"
+                  strokeWidth={2}
+                  dot={false}
+                  activeDot={false}
                 />
               </LineChart>
             </ResponsiveContainer>
