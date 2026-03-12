@@ -3,10 +3,12 @@ from typing import List, Dict, Any
 from pydantic import BaseModel
 import pandas as pd
 from app.model.anomaly_detector import AnomalyDetector
+from app.model.forecaster import Forecaster
 import json
 
 router = APIRouter()
 detector = AnomalyDetector(contamination="auto")
+forecaster = Forecaster(steps_to_predict=3)
 
 # Global store for simplicity in this demo to allow GET /anomalies
 # In a real system, use a database.
@@ -75,8 +77,22 @@ async def upload_file(file: UploadFile = File(...)):
             "time": time_val,
             "value": r[feature_col],
             "is_anomaly": bool(r['is_anomaly']),
-            "anomaly_score": r['anomaly_score']
+            "anomaly_score": r['anomaly_score'],
+            "is_forecast": False
         })
+        
+    # Attempt to forecast the next 3 points
+    try:
+        future_points = forecaster.predict_future(df, feature_col, time_col)
+        if future_points and len(chart_data) > 0:
+            # Anchor the forecast line to the last historical point
+            chart_data[-1]["forecast_value"] = chart_data[-1]["value"]
+            for fp in future_points:
+                fp["forecast_value"] = fp.pop("value")
+                chart_data.append(fp)
+    except Exception as e:
+        # Silently fail if forecasting is not possible
+        pass
     
     # Stats
     total = len(result_df)
