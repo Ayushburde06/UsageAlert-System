@@ -9,7 +9,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const fileInputRef = useRef(null);
 
-  const API_URL = 'http://localhost:8000'; // Target FastAPI endpoint
+  const API_URL = 'https://usagealert-system.onrender.com'; // Target FastAPI endpoint on Render
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
