@@ -15,8 +15,7 @@ ASI/
 │   │   │   └── data_processing.py
 │   │   └── __init__.py
 │   ├── main.py
-│   ├── requirements.txt
-│   └── Dockerfile
+│   └── requirements.txt
 └── frontend/
     ├── src/
     │   ├── App.jsx
@@ -24,8 +23,7 @@ ASI/
     │   └── index.css
     ├── index.html
     ├── package.json
-    ├── vite.config.js
-    └── Dockerfile
+    └── vite.config.js
 ```
 
 ## Running Locally
@@ -40,22 +38,12 @@ ASI/
 2. `npm install`
 3. `npm run dev`
 
-## Deployment on AWS EC2 (Dockerized)
+## Deployment (Optional)
 
-1. Provision an Ubuntu EC2 instance on AWS.
-2. Ensure Security Groups allow inbound traffic on ports 80 (Frontend), 8000 (Backend) and 22 (SSH).
-3. Connect via SSH: `ssh -i key.pem ubuntu@<your-ec2-ip>`
-4. Install Docker and Docker Compose on the instance.
-5. Transfer this project folder to the instance (e.g., using `scp` or `git clone`).
-6. Navigate to the `backend` folder and build/run:
-   ```bash
-   docker build -t energy-backend .
-   docker run -d -p 8000:8000 energy-backend
-   ```
-7. Navigate to the `frontend` folder and build/run:
-   ```bash
-   docker build -t energy-frontend .
-   docker run -d -p 80:80 energy-frontend
-   ```
+This project is built to be cloud-ready. While it currently runs locally, it can be easily deployed to modern cloud providers:
 
-*Note: In the frontend `src/App.jsx`, change `API_URL` to point to the EC2 Public IP address (`http://<EC2-IP>:8000`) before building the frontend Docker image.*
+* **Backend (FastAPI):** Can be deployed as a Web Service on platforms like Render, Railway, or AWS EC2.
+* **Frontend (React/Vite):** Can be deployed as a static site on Vercel, Netlify, or AWS S3. 
+* **Database (Future expansion):** Can be connected to a PostgreSQL database on Supabase or Neon to store historical anomaly alerts.
+
+To prep for deployment, ensure the `API_URL` in `src/App.jsx` points to the production backend URL rather than `localhost:8000`.
