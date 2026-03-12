@@ -9,7 +9,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const fileInputRef = useRef(null);
 
-  const API_URL = 'https://energy-anomaly-backend.onrender.com'; // Target FastAPI endpoint on Render
+  const API_URL = 'https://usagealert-api.onrender.com'; // Target FastAPI endpoint on Render
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);

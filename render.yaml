@@ -1,7 +1,7 @@
 version: "1"
 services:
   - type: web
-    name: energy-anomaly-backend
+    name: usagealert-api
     env: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
@@ -9,7 +9,7 @@ services:
     plan: free
 
   - type: web
-    name: energy-anomaly-frontend
+    name: usagealert-web
     env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
