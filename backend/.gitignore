@@ -1,0 +1,23 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env
+
+# Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Uploads or Local Files
+test.xlsx
+test*
+*.pdf
+*.docx
+*.csv
+*.xls
+
+# OS Files
+.DS_Store
